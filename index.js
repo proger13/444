@@ -20,13 +20,24 @@ const  bot  =  new  TelegramBot ( token ,  { polling : true } ) ;
     .setChromeOptions(options)
     .build();
     
-    await driver.get('https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E+&newwindow=1&sxsrf=ALiCzsY543bfT8TEbKLsQlwhYsztUVCQEA%3A1666206923019&ei=y0xQY_5mr7fFzw-r_YboCQ&ved=0ahUKEwi--JK-gO36AhWvW_EDHau-AZ0Q4dUDCA8&uact=5&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E+&gs_lcp=Cgdnd3Mtd2l6EAMyCggAEIAEEEYQggIyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgjEOoCECc6BAgjECc6BAgAEEM6CQgjECcQRhCCAjoKCAAQgAQQhwIQFDoPCAAQgAQQhwIQFBBGEIICSgQIQRgASgQIRhgAUMgNWIBCYL9DaAFwAXgAgAHCAogBhSOSAQgwLjIuMTYuMpgBAKABAbABCsABAQ&sclient=gws-wiz');
-    const kurs = await driver.findElement(By.css('#knowledge-currency__updatable-data-column div')).getText()
+    await driver.get('https://www.finam.ru/quote/mosbirzha-valyutnyj-rynok/usdrubtod-usd-rub/');
+    const kursusd = await driver.findElement(By.css('#finfin-local-plugin-quote-item-review-price-container')).getText()
+    bot.sendMessage(chatId, kursusd);
+
+    await driver.get('https://www.finam.ru/quote/mosbirzha-valyutnyj-rynok/eurrubtod-eur-rub/');
+    const kurseur = await driver.findElement(By.css('#finfin-local-plugin-quote-item-review-price-container')).getText()
+    bot.sendMessage(chatId, kurseur);
+
+    await driver.get('https://www.bybit.com/fiat/trade/express/home');
+    await driver.findElement(By.css('#express__select-wrap .by-popover__el')).click()
+    await driver.findElement(By.css('.express-center-select__search-input .by-input__inner')).sendKeys('RUB')
+    await driver.findElement(By.css('.express-center-select__list-wrapper')).click()
+    const kursbybit = await driver.findElement(By.css('.express-create-modal__transfer-icon')).getText()
+    console.log(kursbybit);
     driver.close()
-    bot.sendMessage(chatId, kurs);
   }
   
-  setInterval(asdfg, 1000*60*60)
+  setInterval(asdfg, 2000*60*60)
 asdfg()
 
 
