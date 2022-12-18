@@ -3,6 +3,12 @@ const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
 
+
+const sleep = (s) => {
+  return new Promise(r => setTimeout(r, s))
+}
+
+
 const token = '5542460569:AAHXfmOs3hsKbwR5ZyRjwfEQBJOay-2J-TQ'
 
 const  bot  =  new  TelegramBot ( token ,  { polling : true } ) ;
@@ -19,19 +25,23 @@ const  bot  =  new  TelegramBot ( token ,  { polling : true } ) ;
     .build();
     
     await driver.get('https://www.finam.ru/quote/mosbirzha-valyutnyj-rynok/usdrubtod-usd-rub/');
+    await sleep(5000)
     const kursusd = await driver.findElement(By.css('#finfin-local-plugin-quote-item-review-price-container')).getText()
     bot.sendMessage(chatId, 'USD: ' + kursusd);
 
     await driver.get('https://www.finam.ru/quote/mosbirzha-valyutnyj-rynok/eurrubtod-eur-rub/');
+    await sleep(5000)
     const kurseur = await driver.findElement(By.css('#finfin-local-plugin-quote-item-review-price-container')).getText()
-    bot.sendMessage(chatId, 'EURO: ' + kurseur);
+    bot.sendMessage(chatId, 'EUR: ' + kurseur);
 
-    // await driver.get('https://www.bybit.com/fiat/trade/express/home');
-    // await driver.findElement(By.css('#express__select-wrap .by-popover__el')).click()
-    // await driver.findElement(By.css('.express-center-select__search-input .by-input__inner')).sendKeys('RUB')
-    // await driver.findElement(By.css('.express-center-select__list-wrapper')).click()
-    // const kursbybit = await driver.findElement(By.css('.express-create-modal__transfer-icon')).getText()
-    // console.log(kursbybit);
+    await driver.get('https://www.bybit.com/fiat/trade/express/home');
+    await sleep(5000)
+    await driver.findElement(By.css('#express__select-wrap .by-popover__el')).click()
+    await driver.findElement(By.css('.express-center-select__search-input .by-input__inner')).sendKeys('RUB')
+    await driver.findElement(By.css('.express-center-select__list-wrapper')).click()
+    await sleep(5000)
+    const kursbybit = await driver.findElement(By.css('.express-create-modal__transfer-icon')).getText()
+    console.log(kursbybit);
     driver.close()
   }
   

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fetch": "^1.1.0",
     "node-telegram-bot-api": "^0.59.0",
     "selenium-webdriver": "^4.5.0"
   }
